@@ -12,10 +12,17 @@ import {
   GET_SINGLE_PRODUCT_SUCCESS,
   GET_SINGLE_PRODUCT_ERROR,
 } from '../actions'
+// import {loginError} from "@auth0/auth0-react/dist/utils";
 
 const initialState = {
-  isSidebarOpen: false
+  isSidebarOpen: false,
+  products_loading: false,
+  products_error: false,
+  products: [],
+  featured_product: [],
+
 }
+
 
 const ProductsContext = React.createContext()
 
@@ -29,6 +36,23 @@ export const ProductsProvider = ({ children }) => {
   const closeSidebar = () => {
     dispatch({type: SIDEBAR_CLOSE})
   }
+
+  const fetchProducts = async (url) => {
+    dispatch({type: GET_PRODUCTS_BEGIN})
+    try{
+      const response = await axios.get(url)
+      const products = response.data
+      dispatch({type: GET_PRODUCTS_SUCCESS, payload: products})
+
+    }catch (e) {
+      dispatch({type: GET_PRODUCTS_ERROR})
+    }
+
+  }
+
+  useEffect(()=> {
+    fetchProducts(url)
+  }, [])
 
 
 
