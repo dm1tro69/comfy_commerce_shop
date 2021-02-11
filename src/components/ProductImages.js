@@ -1,8 +1,24 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
-const ProductImages = () => {
-  return <h4>product images</h4>
+const ProductImages = ({images=[{url: ''}]}) => {
+  const [main, setMain] = useState(images[0])
+
+  return <Wrapper>
+    <img className={'main'} src={main.url} alt="img"/>
+    <div className="gallery">
+      {images.map((image, index)=> {
+        return (
+            <img
+                className={`${image.url === main.url ? 'active': null}`}
+                key={index}
+                src={image.url}
+                alt="img"
+                onClick={()=> setMain(images[index])}/>
+        )
+      })}
+    </div>
+  </Wrapper>
 }
 
 const Wrapper = styled.section`
