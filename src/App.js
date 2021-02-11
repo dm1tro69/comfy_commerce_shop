@@ -10,24 +10,36 @@ import {Home,
     About,
     Products,
     Private} from './pages'
+import SingleProductPage from "./pages/SingleProductPage";
 
 function App() {
-  return(
-      <Router>
-          <Navbar/>
-          <Sidebar/>
-          <Switch>
-             <Route exact path={'/'} component={Home}/>
-             <Route  path={'/about'} component={About}/>
-             <Route  path={'/cart'} component={Cart}/>
-             <Route  path={'/products'} component={Products}/>
-             <Route  path={'/products/:id'} component={SingleProduct}/>
-             <Route  path={'/checkout'} component={Checkout}/>
-             <Route path={'*'} component={Error}/>
-          </Switch>
-          <Footer/>
-      </Router>
-      )
+
+    return (
+        <Router>
+            <Navbar />
+            <Sidebar />
+            <Switch>
+                <Route exact path="/">
+                    <Home />
+                </Route>
+                <Route exact path="/about">
+                    <About />
+                </Route>
+                <Route exact path="/cart">
+                    <Cart />
+                </Route>
+                <Route exact path="/products">
+                    <Products />
+                </Route>
+                <Route exact path="/products/:id" children={<SingleProduct />} />
+
+                <Route exact path="*">
+                    <Error />
+                </Route>
+            </Switch>
+            <Footer />
+        </Router>
+    );
 
 }
 
