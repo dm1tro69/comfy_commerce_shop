@@ -50,7 +50,66 @@ const filter_reducer = (state, action) => {
             const {name, value} = action.payload
             return {...state, filters: {...state.filters, [name]: value}}
         case FILTER_PRODUCTS:
-            return {...state}
+            const {all_products} = state
+
+            const {text, category, company, color, price, shipping} = state.filters
+            let tempsProducts = [...all_products]
+            // filtering
+            // text
+            if(text){
+                tempsProducts = tempsProducts.filter((product)=> {
+                    return (
+                        product.name.toLowerCase().startsWith(text)
+                    )
+                })
+            }
+            // category
+            if (category !== 'all'){
+                tempsProducts = tempsProducts.filter((product)=> {
+                    return (
+                        product.category === category
+                    )
+                })
+
+            }
+            // company
+            if (company !== 'all'){
+                tempsProducts = tempsProducts.filter((product)=> {
+                    return (
+                        product.company === company
+                    )
+                })
+
+            }
+            // colors
+            if (color !== 'all'){
+                tempsProducts = tempsProducts.filter((product)=> {
+                    return (
+                        product.colors.find((c)=> c === color)
+                    )
+                })
+
+            }
+            // price
+
+            tempsProducts = tempsProducts.filter((product)=> product.price <= price)
+
+            // shipping
+            if (shipping){
+                tempsProducts = tempsProducts.filter((product)=> product.shipping === true)
+            }
+
+            return {...state, filtered_products: tempsProducts}
+        case CLEAR_FILTERS:
+            return {...state, filters: {
+                ...state.filters,
+                    text: '',
+                    company: 'all',
+                    category: 'all',
+                    color: 'all',
+                    price: state.filters.max_price,
+                    shipping: false,
+                }}
         default: return state
     }
 
