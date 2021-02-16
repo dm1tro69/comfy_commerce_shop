@@ -9,6 +9,7 @@ import {Home,
     Cart,
     About,
     Products,
+    Auth,
     Private} from './pages'
 import SingleProductPage from "./pages/SingleProductPage";
 import PrivateRoute from "./pages/PrivateRoute";
@@ -16,34 +17,37 @@ import PrivateRoute from "./pages/PrivateRoute";
 function App() {
 
     return (
-        <Router>
-            <Navbar />
-            <Sidebar />
-            <Switch>
-                <Route exact path="/">
-                    <Home />
-                </Route>
-                <Route exact path="/about">
-                    <About />
-                </Route>
-                <Route exact path="/cart">
-                    <Cart />
-                </Route>
-                <Route exact path="/products">
-                    <Products />
-                </Route>
-                <Route exact path="/products/:id" children={<SingleProduct />} />
+        <Auth>
+            <Router>
+                <Navbar />
+                <Sidebar />
+                <Switch>
+                    <Route exact path="/">
+                        <Home />
+                    </Route>
+                    <Route exact path="/about">
+                        <About />
+                    </Route>
+                    <Route exact path="/cart">
+                        <Cart />
+                    </Route>
+                    <Route exact path="/products">
+                        <Products />
+                    </Route>
+                    <Route exact path="/products/:id" children={<SingleProduct />} />
 
-                <PrivateRoute path={'/checkout'}>
-                    <Checkout/>
-                </PrivateRoute>
+                    <PrivateRoute path={'/checkout'}>
+                        <Checkout/>
+                    </PrivateRoute>
 
-                <Route exact path="*">
-                    <Error />
-                </Route>
-            </Switch>
-            <Footer />
-        </Router>
+                    <Route exact path="*">
+                        <Error />
+                    </Route>
+                </Switch>
+                <Footer />
+            </Router>
+        </Auth>
+
     );
 
 }

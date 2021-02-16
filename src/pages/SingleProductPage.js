@@ -23,6 +23,7 @@ const SingleProductPage = () => {
 
   useEffect(()=> {
     fetchSingleProduct(`${url}${id}`)
+    // eslint-disable-next-line
   }, [id])
 
   useEffect(()=> {
@@ -31,6 +32,7 @@ const SingleProductPage = () => {
          history.push('/')
       }, 3000)
     }
+    // eslint-disable-next-line
   }, [error])
 
   if (loading){
