@@ -15,4 +15,5 @@
 "react-dom": "^17.0.1",
 "react-scripts": "4.0.0",
 ```
-DEMO ("https://portfolio-react-comfy.netlify.app/products")
+
+[DEMO](https://portfolio-react-comfy.netlify.app/products)
